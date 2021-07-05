@@ -1,0 +1,17 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "test for A*",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "hs -c-1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "YZU",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^15.12.5",
+    "typescript": "^4.3.4"
+  },
+  "type": "module"
+}

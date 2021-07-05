@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Game</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script type="module" src="dist/game-system.js"></script>
+    <script type="module" src="dist/main.js"></script>
+</head>
+
+<body>
+    <div class="control-panel">
+        Resolution of world: <input id="resolution" />
+        <button onclick="javascript:resetWorld(resolution.value);">Change world</button>
+    </div>
+    <div class="container">
+        <canvas id="world" width="402" height="302"></canvas>
+        <canvas id="curtain" width="402" height="302"></canvas>
+    </div>
+</body>
+
+</html>
