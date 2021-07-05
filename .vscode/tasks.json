@@ -2,13 +2,24 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "tsc: build",
 			"type": "typescript",
 			"tsconfig": "tsconfig.json",
 			"problemMatcher": [
 				"$tsc"
 			],
+			"group": "build"
+		},
+		{
+			"label": "Replace import",
+			"type": "shell",
+			"command": "powershell ${workspaceFolder}/script/replace.ps1",
+			"windows": {
+				"command": "powershell ${workspaceFolder}\\script\\replace.ps1"
+			},
 			"group": "build",
-			"label": "tsc: build - tsconfig.json"
+			"dependsOn": "tsc: build",
+			"problemMatcher": []
 		}
 	]
 }
