@@ -1,16 +1,18 @@
-import { IPosition } from "./position";
+import { IInteractArgs } from "../game-infra/interact-args";
+import { Position } from "../game-infra/position";
 
-export abstract class GameSprite implements IPosition {
-  public get stringify(): string {
-    return `${this.x}, ${this.y}`;
-  }
-  public x: number;
-  public y: number;
+export abstract class GameSprite extends Position {
   public velocityX: number;
   public velocityY: number;
   public active: boolean;
   public resolution: number;
   protected context: CanvasRenderingContext2D;
+  protected img: HTMLImageElement;
+
+  constructor(x: number = 0, y: number = 0) {
+    super(x, y);
+    this.draw.bind(this);
+  }
   public enable(context: CanvasRenderingContext2D): void {
     this.context = context;
     this.active = true;
@@ -18,7 +20,14 @@ export abstract class GameSprite implements IPosition {
   public abstract init(worldSize: number, used: Set<string>): void;
   public abstract update(): void;
 
-  public abstract interact(): void;
+  public abstract interact(eventArgs: IInteractArgs): void;
+  public draw() {
+    this.context.drawImage(
+      this.img,
+      this.x * this.resolution + 2,
+      this.y * this.resolution + 2
+    );
+  }
 
   protected getRandomInt(max: number) {
     return Math.floor(Math.random() * max);

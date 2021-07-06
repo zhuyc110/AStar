@@ -13,6 +13,7 @@ export function resetWorld(resolution: string | number) {
   system?.stop();
 
   system = new GameSystem(foreground, +resolution);
+  system.registerInteract(Brick.createBrickHandler);
 
   system.renderWorld(world.getContext("2d"));
 
@@ -27,6 +28,6 @@ export function resetWorld(resolution: string | number) {
   system.start();
 }
 
-resetWorld(50);
+resetWorld(25);
 
 window["resetWorld"] = resetWorld;

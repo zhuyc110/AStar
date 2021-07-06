@@ -1,3 +1,5 @@
+import { IInteractArgs } from "./game-infra/interact-args";
+import { Position } from "./game-infra/position";
 import { GameSprite } from "./game-object/game-sprite";
 
 export class GameSystem {
@@ -8,11 +10,37 @@ export class GameSystem {
   private frameRunner: NodeJS.Timeout;
   private worldResolution: number = 25;
 
+  private interactHandler: ((eventArgs: IInteractArgs) => GameSprite)[] = [];
+
   constructor(canvas: HTMLCanvasElement, resolution: number = 25) {
     this.canvas = canvas;
     this.context = this.canvas.getContext("2d");
     this.worldResolution = resolution;
     this.canvas.onclick = this.onClick.bind(this);
+    this.update = this.update.bind(this);
+  }
+
+  public renderWorld(worldContext: CanvasRenderingContext2D) {
+    for (
+      let indexX = 1;
+      indexX < this.canvas.width;
+      indexX += this.worldResolution
+    ) {
+      worldContext.beginPath();
+      worldContext.moveTo(indexX, 0);
+      worldContext.lineTo(indexX, this.canvas.height);
+      worldContext.stroke();
+    }
+    for (
+      let indexY = 1;
+      indexY < this.canvas.height;
+      indexY += this.worldResolution
+    ) {
+      worldContext.beginPath();
+      worldContext.moveTo(0, indexY);
+      worldContext.lineTo(this.canvas.width, indexY);
+      worldContext.stroke();
+    }
   }
 
   public activeSprite(sprite: GameSprite) {
@@ -26,36 +54,18 @@ export class GameSystem {
       sprite.init(this.worldResolution, set);
       set.add(sprite.stringify);
     }
-    this.frameRunner = setInterval(this.update.bind(this), interval);
+
+    const timeOut = setTimeout(() => {
+      this.update();
+      clearTimeout(timeOut);
+    }, 100);
+    // this.frameRunner = setInterval(this.update.bind(this), interval);
   }
 
   public update() {
     this.clear();
     for (const sprite of this.sprites.filter((x) => x.active)) {
       sprite.update();
-    }
-  }
-
-  public renderWorld(context: CanvasRenderingContext2D) {
-    for (
-      let indexX = 1;
-      indexX < this.canvas.width;
-      indexX += this.worldResolution
-    ) {
-      context.beginPath();
-      context.moveTo(indexX, 0);
-      context.lineTo(indexX, this.canvas.height);
-      context.stroke();
-    }
-    for (
-      let indexY = 1;
-      indexY < this.canvas.height;
-      indexY += this.worldResolution
-    ) {
-      context.beginPath();
-      context.moveTo(0, indexY);
-      context.lineTo(this.canvas.width, indexY);
-      context.stroke();
     }
   }
 
@@ -68,7 +78,13 @@ export class GameSystem {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
+  public registerInteract(handler: (eventArgs: IInteractArgs) => GameSprite) {
+    this.interactHandler.push(handler);
+  }
+
   private onClick(event: MouseEvent) {
+    const eventArgs: IInteractArgs = this.getInteractArgs(event);
+
     for (const sprite of this.sprites) {
       if (
         event.offsetX >= sprite.x * sprite.resolution &&
@@ -76,8 +92,35 @@ export class GameSystem {
         event.offsetY >= sprite.y * sprite.resolution &&
         event.offsetY <= (sprite.y + 1) * sprite.resolution
       ) {
-        sprite.interact();
+        sprite.interact(eventArgs);
       }
     }
+
+    for (const handler of this.interactHandler) {
+      if (eventArgs.handled) {
+        break;
+      }
+
+      const sprite = handler(eventArgs);
+      if (sprite) {
+        this.activeSprite(sprite);
+        const timeOut = setTimeout(() => {
+          sprite.draw();
+          clearTimeout(timeOut);
+        }, 100);
+      }
+    }
+  }
+
+  private getInteractArgs(event: MouseEvent): IInteractArgs {
+    return {
+      position: new Position(
+        event.offsetX / this.worldResolution,
+        event.offsetY / this.worldResolution
+      ),
+      handled: false,
+      context: this.context,
+      resolution: this.worldResolution,
+    };
   }
 }
