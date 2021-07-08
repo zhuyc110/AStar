@@ -35,8 +35,10 @@ export class Brick extends GameSprite {
   public update(): void {
     this.draw();
   }
+
   public interact(eventArgs: IInteractArgs): void {
     console.log("Brick clicked");
+    eventArgs.world.removeSprite(this);
     eventArgs.handled = true;
   }
 }

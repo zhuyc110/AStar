@@ -18,6 +18,7 @@ export class GameSystem {
     this.worldResolution = resolution;
     this.canvas.onclick = this.onClick.bind(this);
     this.update = this.update.bind(this);
+    this.removeSprite = this.removeSprite.bind(this);
     this.drawSprite = this.drawSprite.bind(this);
   }
 
@@ -49,6 +50,11 @@ export class GameSystem {
     this.sprites.push(sprite);
   }
 
+  public removeSprite(sprite: GameSprite) {
+    const index = this.sprites.indexOf(sprite);
+    this.sprites.splice(index, 1);
+  }
+
   public start(interval: number = 1000) {
     const set = new Set<string>();
     for (const sprite of this.sprites.filter((x) => x.active)) {
@@ -60,7 +66,7 @@ export class GameSystem {
       this.update();
       clearTimeout(timeOut);
     }, 100);
-    // this.frameRunner = setInterval(this.update.bind(this), interval);
+    this.frameRunner = setInterval(this.update, interval);
   }
 
   public update() {
@@ -117,7 +123,7 @@ export class GameSystem {
         event.offsetY / this.worldResolution
       ),
       handled: false,
-      context: this.context,
+      world: this,
       resolution: this.worldResolution,
     };
   }
