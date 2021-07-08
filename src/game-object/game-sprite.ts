@@ -6,11 +6,18 @@ export abstract class GameSprite extends Position {
   public velocityY: number;
   public active: boolean;
   public resolution: number;
+  public loaded: ((sprite: GameSprite) => void)[] = [];
   protected context: CanvasRenderingContext2D;
   protected img: HTMLImageElement;
 
   constructor(x: number = 0, y: number = 0) {
     super(x, y);
+    this.img = new Image();
+    this.img.onload = () => {
+      this.loaded.forEach((callBack) => {
+        callBack(this);
+      });
+    };
     this.draw.bind(this);
   }
   public enable(context: CanvasRenderingContext2D): void {

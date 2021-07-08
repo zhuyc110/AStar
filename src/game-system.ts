@@ -18,6 +18,7 @@ export class GameSystem {
     this.worldResolution = resolution;
     this.canvas.onclick = this.onClick.bind(this);
     this.update = this.update.bind(this);
+    this.drawSprite = this.drawSprite.bind(this);
   }
 
   public renderWorld(worldContext: CanvasRenderingContext2D) {
@@ -104,10 +105,7 @@ export class GameSystem {
       const sprite = handler(eventArgs);
       if (sprite) {
         this.activeSprite(sprite);
-        const timeOut = setTimeout(() => {
-          sprite.draw();
-          clearTimeout(timeOut);
-        }, 100);
+        sprite.loaded.push(this.drawSprite);
       }
     }
   }
@@ -122,5 +120,11 @@ export class GameSystem {
       context: this.context,
       resolution: this.worldResolution,
     };
+  }
+
+  private drawSprite(sprite: GameSprite) {
+    sprite.draw();
+    const index = sprite.loaded.indexOf(this.drawSprite);
+    sprite.loaded.splice(index, 1);
   }
 }
