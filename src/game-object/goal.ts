@@ -1,10 +1,10 @@
-import { IInteractArgs } from "../game-infra/interact-args";
-import { GameSprite } from "./game-sprite";
+import { IInteractArgs } from '../game-infra/interact-args';
+import { GameSprite } from './game-sprite';
 
 export class Goal extends GameSprite {
   constructor(x: number = 0, y: number = 0) {
     super(x, y);
-    this.img.src = "../../asset/goal.png";
+    this.img.src = '../../asset/goal.png';
   }
   public init(worldResolution: number, used: Set<string>): void {
     this.resolution = worldResolution;
@@ -21,7 +21,7 @@ export class Goal extends GameSprite {
     this.draw();
   }
   public interact(eventArgs: IInteractArgs): void {
-    console.log("Goal clicked");
+    console.log('Goal clicked');
     eventArgs.handled = true;
   }
 }

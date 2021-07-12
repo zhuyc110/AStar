@@ -5,7 +5,8 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "hs -c-1",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "author": "YZU",
   "license": "ISC",

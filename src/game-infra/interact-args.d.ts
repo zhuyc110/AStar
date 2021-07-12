@@ -1,5 +1,5 @@
-import { GameSprite } from "../game-object/game-sprite";
-import { IPosition } from "./position";
+import { GameSprite } from '../game-object/game-sprite';
+import { IPosition } from './position';
 
 export interface IInteractArgs {
   position: IPosition;

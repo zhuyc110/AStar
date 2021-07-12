@@ -16,6 +16,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
+    quotes: ['warn', 'single'],
     '@typescript-eslint/no-inferrable-types': [
       'warn',
       {
