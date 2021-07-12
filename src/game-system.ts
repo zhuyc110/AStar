@@ -1,6 +1,6 @@
-import { IInteractArgs } from "./game-infra/interact-args";
-import { Position } from "./game-infra/position";
-import { GameSprite } from "./game-object/game-sprite";
+import { IInteractArgs } from './game-infra/interact-args';
+import { Position } from './game-infra/position';
+import { GameSprite } from './game-object/game-sprite';
 
 export class GameSystem {
   private canvas: HTMLCanvasElement;
@@ -8,13 +8,13 @@ export class GameSystem {
   private sprites: GameSprite[] = [];
 
   private frameRunner: NodeJS.Timeout;
-  private worldResolution: number = 25;
+  private worldResolution = 25;
 
   private interactHandler: ((eventArgs: IInteractArgs) => GameSprite)[] = [];
 
   constructor(canvas: HTMLCanvasElement, resolution: number = 25) {
     this.canvas = canvas;
-    this.context = this.canvas.getContext("2d");
+    this.context = this.canvas.getContext('2d');
     this.worldResolution = resolution;
     this.canvas.onclick = this.onClick.bind(this);
     this.update = this.update.bind(this);
@@ -22,7 +22,7 @@ export class GameSystem {
     this.drawSprite = this.drawSprite.bind(this);
   }
 
-  public renderWorld(worldContext: CanvasRenderingContext2D) {
+  public renderWorld(worldContext: CanvasRenderingContext2D): void {
     for (
       let indexX = 1;
       indexX < this.canvas.width;
@@ -45,19 +45,19 @@ export class GameSystem {
     }
   }
 
-  public activeSprite(sprite: GameSprite) {
+  public activeSprite(sprite: GameSprite): void {
     sprite.enable(this.context);
     this.sprites.push(sprite);
   }
 
-  public removeSprite(sprite: GameSprite) {
+  public removeSprite(sprite: GameSprite): void {
     const index = this.sprites.indexOf(sprite);
     this.sprites.splice(index, 1);
   }
 
-  public start(interval: number = 100) {
+  public start(interval: number = 100): void {
     const set = new Set<string>();
-    for (const sprite of this.sprites.filter((x) => x.active)) {
+    for (const sprite of this.sprites.filter(x => x.active)) {
       sprite.init(this.worldResolution, set);
       set.add(sprite.stringify);
     }
@@ -69,23 +69,25 @@ export class GameSystem {
     this.frameRunner = setInterval(this.update, interval);
   }
 
-  public update() {
+  public update(): void {
     this.clear();
-    for (const sprite of this.sprites.filter((x) => x.active)) {
+    for (const sprite of this.sprites.filter(x => x.active)) {
       sprite.update();
     }
   }
 
-  public stop() {
+  public stop(): void {
     clearInterval(this.frameRunner);
     this.clear();
   }
 
-  public clear() {
+  public clear(): void {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  public registerInteract(handler: (eventArgs: IInteractArgs) => GameSprite) {
+  public registerInteract(
+    handler: (eventArgs: IInteractArgs) => GameSprite,
+  ): void {
     this.interactHandler.push(handler);
   }
 
@@ -119,7 +121,7 @@ export class GameSystem {
     return {
       position: new Position(
         event.offsetX / this.worldResolution,
-        event.offsetY / this.worldResolution
+        event.offsetY / this.worldResolution,
       ),
       handled: false,
       world: this,

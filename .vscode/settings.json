@@ -9,5 +9,8 @@
         "**/**.js": {
             "when": "$(basename).tsx"
         }
+    },
+    "editor.codeActionsOnSave":{
+        "source.fixAll.eslint": true
     }
 }

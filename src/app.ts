@@ -2,8 +2,8 @@ import * as fs from "fs/promises";
 import * as http from "http";
 import path from "path";
 
-const host: string = "localhost";
-const port: number = 8000;
+const host = "localhost";
+const port = 8000;
 
 const requestListener: http.RequestListener = function (req, res) {
   console.log(req);

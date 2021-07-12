@@ -1,5 +1,5 @@
-import { IInteractArgs } from "../game-infra/interact-args";
-import { Position } from "../game-infra/position";
+import { IInteractArgs } from '../game-infra/interact-args';
+import { Position } from '../game-infra/position';
 
 export abstract class GameSprite extends Position {
   public velocityX: number;
@@ -14,7 +14,7 @@ export abstract class GameSprite extends Position {
     super(x, y);
     this.img = new Image();
     this.img.onload = () => {
-      this.loaded.forEach((callBack) => {
+      this.loaded.forEach(callBack => {
         callBack(this);
       });
     };
@@ -28,15 +28,15 @@ export abstract class GameSprite extends Position {
   public abstract update(): void;
 
   public abstract interact(eventArgs: IInteractArgs): void;
-  public draw() {
+  public draw(): void {
     this.context.drawImage(
       this.img,
       this.x * this.resolution + 2,
-      this.y * this.resolution + 2
+      this.y * this.resolution + 2,
     );
   }
 
-  protected getRandomInt(max: number) {
+  protected getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
   }
 }
