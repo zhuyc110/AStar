@@ -55,7 +55,7 @@ export class GameSystem {
     this.sprites.splice(index, 1);
   }
 
-  public start(interval: number = 1000) {
+  public start(interval: number = 100) {
     const set = new Set<string>();
     for (const sprite of this.sprites.filter((x) => x.active)) {
       sprite.init(this.worldResolution, set);
@@ -111,7 +111,6 @@ export class GameSystem {
       const sprite = handler(eventArgs);
       if (sprite) {
         this.activeSprite(sprite);
-        sprite.loaded.push(this.drawSprite);
       }
     }
   }
