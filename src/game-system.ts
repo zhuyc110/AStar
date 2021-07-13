@@ -1,8 +1,14 @@
 import { IInteractArgs } from './game-infra/interact-args';
-import { Position } from './game-infra/position';
+import { IPosition, Position } from './game-infra/position';
 import { GameSprite } from './game-object/game-sprite';
 
 export class GameSystem {
+  public get objects(): IPosition[] {
+    return this.sprites;
+  }
+  public get bound(): IPosition {
+    return this.boundValue;
+  }
   private canvas: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
   private sprites: GameSprite[] = [];
@@ -11,6 +17,7 @@ export class GameSystem {
   private worldResolution = 25;
 
   private interactHandler: ((eventArgs: IInteractArgs) => GameSprite)[] = [];
+  private boundValue: IPosition;
 
   constructor(canvas: HTMLCanvasElement, resolution: number = 25) {
     this.canvas = canvas;
@@ -20,6 +27,11 @@ export class GameSystem {
     this.update = this.update.bind(this);
     this.removeSprite = this.removeSprite.bind(this);
     this.drawSprite = this.drawSprite.bind(this);
+
+    this.boundValue = new Position(
+      Math.floor(this.canvas.width / resolution),
+      Math.floor(this.canvas.height / resolution),
+    );
   }
 
   public renderWorld(worldContext: CanvasRenderingContext2D): void {

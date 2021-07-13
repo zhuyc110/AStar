@@ -1,6 +1,6 @@
 $files = Get-ChildItem -Path './dist/' -Recurse -Include *.js
 
-$importReg = "import [\w\W]+[^rxjs]';"
+$importReg = "import [\w\W]+';"
 
 foreach ($file in $files) {
     $content = Get-Content $file

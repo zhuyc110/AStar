@@ -1,3 +1,4 @@
+import { Actor } from './actor/actor';
 import { Brick } from './game-object/brick';
 import { Goal } from './game-object/goal';
 import { Start } from './game-object/start';
@@ -32,6 +33,12 @@ export function resetWorld(resolution: string | number): void {
   system.start();
 }
 
+export function action(): void {
+  const actor = new Actor(system, start, goal);
+  console.log(actor);
+}
+
 resetWorld(25);
 
 window['resetWorld'] = resetWorld;
+window['action'] = action;
