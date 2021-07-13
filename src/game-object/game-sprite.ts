@@ -36,7 +36,11 @@ export abstract class GameSprite extends Position {
     );
   }
 
-  protected getRandomInt(max: number): number {
-    return Math.floor(Math.random() * max);
+  protected getRandomInt(max: number, min: number = 0): number {
+    if (max <= min) {
+      return 0;
+    }
+
+    return Math.floor(Math.random() * (max - min)) + Math.floor(min);
   }
 }

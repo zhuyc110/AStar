@@ -1,5 +1,6 @@
 import { Brick } from './game-object/brick';
 import { Goal } from './game-object/goal';
+import { Start } from './game-object/start';
 import { GameSystem } from './game-system';
 
 const world = document.querySelector('#world') as HTMLCanvasElement;
@@ -7,6 +8,7 @@ const foreground = document.querySelector('#curtain') as HTMLCanvasElement;
 let system: GameSystem;
 
 let goal: Goal;
+let start: Start;
 
 export function resetWorld(resolution: string | number): void {
   world.getContext('2d').clearRect(0, 0, world.width, world.height);
@@ -17,6 +19,8 @@ export function resetWorld(resolution: string | number): void {
 
   system.renderWorld(world.getContext('2d'));
 
+  start = new Start();
+  system.activeSprite(start);
   goal = new Goal();
   system.activeSprite(goal);
 

@@ -8,11 +8,23 @@ export class Goal extends GameSprite {
   }
   public init(worldResolution: number, used: Set<string>): void {
     this.resolution = worldResolution;
-    this.x = this.getRandomInt(this.context.canvas.width / this.resolution);
-    this.y = this.getRandomInt(this.context.canvas.height / this.resolution);
+    this.x = this.getRandomInt(
+      this.context.canvas.width / this.resolution,
+      this.context.canvas.width / this.resolution / 2,
+    );
+    this.y = this.getRandomInt(
+      this.context.canvas.height / this.resolution,
+      this.context.canvas.height / this.resolution / 2,
+    );
     while (used.has(this.stringify)) {
-      this.x = this.getRandomInt(this.context.canvas.width / this.resolution);
-      this.y = this.getRandomInt(this.context.canvas.height / this.resolution);
+      this.x = this.getRandomInt(
+        this.context.canvas.width / this.resolution,
+        this.context.canvas.width / this.resolution / 2,
+      );
+      this.y = this.getRandomInt(
+        this.context.canvas.height / this.resolution,
+        this.context.canvas.height / this.resolution / 2,
+      );
     }
     this.draw();
   }
