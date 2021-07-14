@@ -35,7 +35,8 @@ export function resetWorld(resolution: string | number): void {
 
 export function action(): void {
   const actor = new Actor(system, start, goal);
-  console.log(actor);
+  actor.findPath();
+  console.log(actor.path);
 }
 
 resetWorld(25);
