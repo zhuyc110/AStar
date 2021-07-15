@@ -37,7 +37,14 @@ export function resetWorld(resolution: string | number): void {
 export function wfsAction(): void {
   path.getContext('2d').clearRect(0, 0, path.width, path.height);
   const actor = new Actor(system, start, goal);
-  actor.findPath();
+  actor.wfsFind();
+  system.renderPath(path.getContext('2d'), actor.path);
+}
+
+export function heuristicAction(): void {
+  path.getContext('2d').clearRect(0, 0, path.width, path.height);
+  const actor = new Actor(system, start, goal);
+  actor.heuristicFind();
   system.renderPath(path.getContext('2d'), actor.path);
 }
 
@@ -45,3 +52,4 @@ resetWorld(25);
 
 window['resetWorld'] = resetWorld;
 window['wfsAction'] = wfsAction;
+window['heuristicAction'] = heuristicAction;

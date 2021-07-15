@@ -14,7 +14,10 @@
             Resolution of world: <input id="resolution" />
             <button onclick="javascript:resetWorld(resolution.value);">Change world</button>
         </div>
-        <button onclick="javascript:wfsAction();">Action!</button>
+        <div class="button-panel">
+            <button onclick="javascript:wfsAction();">Action!</button>
+            <button onclick="javascript:heuristicAction();">Heuristic Action!</button>
+        </div>
     </div>
     <div class="container">
         <canvas id="world" width="402" height="302"></canvas>
