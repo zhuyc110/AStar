@@ -6,6 +6,7 @@ import { GameSystem } from './game-system';
 
 const world = document.querySelector('#world') as HTMLCanvasElement;
 const foreground = document.querySelector('#curtain') as HTMLCanvasElement;
+const path = document.querySelector('#path') as HTMLCanvasElement;
 let system: GameSystem;
 
 let goal: Goal;
@@ -33,13 +34,14 @@ export function resetWorld(resolution: string | number): void {
   system.start();
 }
 
-export function action(): void {
+export function wfsAction(): void {
+  path.getContext('2d').clearRect(0, 0, path.width, path.height);
   const actor = new Actor(system, start, goal);
   actor.findPath();
-  console.log(actor.path);
+  system.renderPath(path.getContext('2d'), actor.path);
 }
 
 resetWorld(25);
 
 window['resetWorld'] = resetWorld;
-window['action'] = action;
+window['wfsAction'] = wfsAction;

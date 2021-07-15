@@ -57,6 +57,42 @@ export class GameSystem {
     }
   }
 
+  public renderPath(
+    pathContext: CanvasRenderingContext2D,
+    path: IPosition[],
+  ): void {
+    let pre: IPosition = null;
+    for (let index = 0; index < path.length; index++) {
+      const node = path[index];
+      const nodeLocation = new Position(
+        (node.x + 0.5) * this.worldResolution + 1,
+        (node.y + 0.5) * this.worldResolution + 1,
+      );
+      if (pre !== null) {
+        const preLocation = new Position(
+          (pre.x + 0.5) * this.worldResolution + 1,
+          (pre.y + 0.5) * this.worldResolution + 1,
+        );
+        pathContext.beginPath();
+        pathContext.moveTo(preLocation.x, preLocation.y);
+        pathContext.lineTo(nodeLocation.x, nodeLocation.y);
+        pathContext.stroke();
+      }
+      pathContext.beginPath();
+      pathContext.ellipse(
+        nodeLocation.x,
+        nodeLocation.y,
+        2,
+        2,
+        Math.PI / 4,
+        0,
+        2 * Math.PI,
+      );
+      pathContext.stroke();
+      pre = node;
+    }
+  }
+
   public activeSprite(sprite: GameSprite): void {
     sprite.enable(this.context);
     this.sprites.push(sprite);

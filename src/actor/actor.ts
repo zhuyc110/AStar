@@ -22,8 +22,10 @@ export class Actor {
     queue.enqueue(this.start);
     while (queue.length > 0) {
       const node = queue.dequeue();
+      this.path.push(node);
 
       if (node.stringify === this.goal.stringify) {
+        this.path.push(node);
         break;
       }
 
@@ -58,7 +60,7 @@ export class Actor {
       result.push(potential);
     }
 
-    if (position.x < this.world.bound.x) {
+    if (position.x < this.world.bound.x - 1) {
       const potential = new Position(position.x + 1, position.y);
       result.push(potential);
     }
@@ -68,7 +70,7 @@ export class Actor {
       result.push(potential);
     }
 
-    if (position.y < this.world.bound.y) {
+    if (position.y < this.world.bound.y - 1) {
       const potential = new Position(position.x, position.y + 1);
       result.push(potential);
     }
