@@ -1,4 +1,5 @@
 import { Actor } from './actor/actor';
+import { IPosition } from './game-infra/position';
 import { Brick } from './game-object/brick';
 import { Goal } from './game-object/goal';
 import { Start } from './game-object/start';
@@ -14,6 +15,7 @@ let start: Start;
 
 export function resetWorld(resolution: string | number): void {
   world.getContext('2d').clearRect(0, 0, world.width, world.height);
+  path.getContext('2d').clearRect(0, 0, path.width, path.height);
   system?.stop();
 
   system = new GameSystem(foreground, +resolution);
@@ -48,8 +50,26 @@ export function heuristicAction(): void {
   system.renderPath(path.getContext('2d'), actor.path);
 }
 
+export function aStarAction(): void {
+  path.getContext('2d').clearRect(0, 0, path.width, path.height);
+  const actor = new Actor(system, start, goal);
+  actor.aStarFind();
+  const realPath: IPosition[] = [];
+  let pointer: IPosition = goal;
+  while (pointer) {
+    const next = actor.mapPath.get(pointer);
+    if (!next) {
+      break;
+    }
+    realPath.push(next);
+    pointer = next;
+  }
+  system.renderPath(path.getContext('2d'), realPath.reverse());
+}
+
 resetWorld(25);
 
 window['resetWorld'] = resetWorld;
 window['wfsAction'] = wfsAction;
 window['heuristicAction'] = heuristicAction;
+window['aStarAction'] = aStarAction;

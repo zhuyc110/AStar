@@ -15,15 +15,21 @@ export class PriorityQueue<T> {
   }
 
   public enqueue(value: T, priority: number): void {
+    if (this.items.length === 0) {
+      this.items.push({ priority, item: value });
+      return;
+    }
+
     let insertIndex = 0;
     for (let index = 0; index < this.items.length; index++) {
       const pointer = this.items[index];
+      insertIndex = index;
       if (pointer.priority > priority) {
-        insertIndex = index;
-        break;
+        this.items.splice(insertIndex, 0, { item: value, priority });
+        return;
       }
     }
-    this.items.splice(insertIndex, 0, { item: value, priority });
+    this.items.push({ priority, item: value });
   }
 
   public dequeue(): T {
