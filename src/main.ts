@@ -1,5 +1,4 @@
 import { Actor } from './actor/actor';
-import { IPosition } from './game-infra/position';
 import { Brick } from './game-object/brick';
 import { Goal } from './game-object/goal';
 import { Start } from './game-object/start';
@@ -40,31 +39,21 @@ export function wfsAction(): void {
   path.getContext('2d').clearRect(0, 0, path.width, path.height);
   const actor = new Actor(system, start, goal);
   actor.wfsFind();
-  system.renderPath(path.getContext('2d'), actor.path);
+  system.renderPath(path.getContext('2d'), actor.pathToPrint);
 }
 
 export function heuristicAction(): void {
   path.getContext('2d').clearRect(0, 0, path.width, path.height);
   const actor = new Actor(system, start, goal);
   actor.heuristicFind();
-  system.renderPath(path.getContext('2d'), actor.path);
+  system.renderPath(path.getContext('2d'), actor.pathToPrint);
 }
 
 export function aStarAction(): void {
   path.getContext('2d').clearRect(0, 0, path.width, path.height);
   const actor = new Actor(system, start, goal);
   actor.aStarFind();
-  const realPath: IPosition[] = [];
-  let pointer: IPosition = goal;
-  while (pointer) {
-    const next = actor.mapPath.get(pointer);
-    if (!next) {
-      break;
-    }
-    realPath.push(next);
-    pointer = next;
-  }
-  system.renderPath(path.getContext('2d'), realPath.reverse());
+  system.renderPath(path.getContext('2d'), actor.pathToPrint);
 }
 
 resetWorld(25);

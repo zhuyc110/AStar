@@ -4,9 +4,24 @@ import { IPosition, Position } from '../game-infra/position';
 import { GameSystem } from '../game-system';
 
 export class Actor {
-  public path: IPosition[] = [];
+  public visited: IPosition[] = [];
 
   public mapPath: Map<IPosition, IPosition> = new Map<IPosition, IPosition>();
+
+  public get pathToPrint(): IPosition[] {
+    const realPath: IPosition[] = [this.goal];
+    let pointer: IPosition = this.goal;
+    while (pointer) {
+      const next = this.mapPath.get(pointer);
+      if (!next) {
+        break;
+      }
+      realPath.push(next);
+      pointer = next;
+    }
+
+    return realPath;
+  }
 
   constructor(
     private world: GameSystem,
@@ -27,7 +42,7 @@ export class Actor {
       const current = queue.dequeue();
 
       if (current.stringify === this.goal.stringify) {
-        this.path.push(current);
+        this.visited.push(current);
         break;
       }
 
@@ -35,12 +50,12 @@ export class Actor {
         continue;
       }
 
-      this.path.push(current);
+      this.visited.push(current);
       visited.add(current.stringify);
 
       const neighbors = this.getNeighbors(current);
 
-      for (const neighbor of neighbors) {
+      for (let neighbor of neighbors) {
         if (bricks.find(x => x.stringify === neighbor.stringify)) {
           continue;
         }
@@ -49,7 +64,13 @@ export class Actor {
           continue;
         }
 
+        if (neighbor.stringify === this.goal.stringify) {
+          neighbor = this.goal;
+        }
+
         queue.enqueue(neighbor);
+
+        this.mapPath.set(neighbor, current);
       }
     }
   }
@@ -67,7 +88,7 @@ export class Actor {
       const current = queue.dequeue();
 
       if (current.stringify === this.goal.stringify) {
-        this.path.push(current);
+        this.visited.push(current);
         break;
       }
 
@@ -75,12 +96,12 @@ export class Actor {
         continue;
       }
 
-      this.path.push(current);
+      this.visited.push(current);
       visited.add(current.stringify);
 
       const neighbors = this.getNeighbors(current);
 
-      for (const neighbor of neighbors) {
+      for (let neighbor of neighbors) {
         if (bricks.find(x => x.stringify === neighbor.stringify)) {
           continue;
         }
@@ -89,9 +110,15 @@ export class Actor {
           continue;
         }
 
+        if (neighbor.stringify === this.goal.stringify) {
+          neighbor = this.goal;
+        }
+
         const priority = this.getDistance(neighbor, this.goal);
 
         queue.enqueue(neighbor, priority);
+
+        this.mapPath.set(neighbor, current);
       }
     }
   }
