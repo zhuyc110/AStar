@@ -39,6 +39,7 @@ export function wfsAction(): void {
   path.getContext('2d').clearRect(0, 0, path.width, path.height);
   const actor = new Actor(system, start, goal);
   actor.wfsFind();
+  system.renderVisited(path.getContext('2d'), actor.visited);
   system.renderPath(path.getContext('2d'), actor.pathToPrint);
 }
 
@@ -46,6 +47,7 @@ export function heuristicAction(): void {
   path.getContext('2d').clearRect(0, 0, path.width, path.height);
   const actor = new Actor(system, start, goal);
   actor.heuristicFind();
+  system.renderVisited(path.getContext('2d'), actor.visited);
   system.renderPath(path.getContext('2d'), actor.pathToPrint);
 }
 
@@ -53,6 +55,7 @@ export function aStarAction(): void {
   path.getContext('2d').clearRect(0, 0, path.width, path.height);
   const actor = new Actor(system, start, goal);
   actor.aStarFind();
+  system.renderVisited(path.getContext('2d'), actor.visited);
   system.renderPath(path.getContext('2d'), actor.pathToPrint);
 }
 

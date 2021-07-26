@@ -93,6 +93,22 @@ export class GameSystem {
     }
   }
 
+  public renderVisited(
+    pathContext: CanvasRenderingContext2D,
+    visited: IPosition[],
+  ): void {
+    pathContext.fillStyle = '#E1A679';
+    for (const node of visited) {
+      pathContext.fillRect(
+        node.x * this.worldResolution + 2,
+        node.y * this.worldResolution + 2,
+        this.worldResolution - 2,
+        this.worldResolution - 2,
+      );
+    }
+    pathContext.fillStyle = 'black';
+  }
+
   public activeSprite(sprite: GameSprite): void {
     sprite.enable(this.context);
     this.sprites.push(sprite);

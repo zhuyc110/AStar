@@ -141,6 +141,7 @@ export class Actor {
         break;
       }
 
+      this.visited.push(current);
       const neighbors = this.getNeighbors(current);
 
       for (let neighbor of neighbors) {
