@@ -138,6 +138,7 @@ export class Actor {
       const current = queue.dequeue();
 
       if (current.stringify === this.goal.stringify) {
+        this.visited.push(current);
         break;
       }
 
