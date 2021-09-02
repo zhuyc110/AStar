@@ -11,8 +11,9 @@
 <body>
     <div class="control-panel">
         <div class="world-panel">
-            Resolution of world: <input id="resolution" />
+            Resolution of world: <input id="resolution" value="25" />
             <button onclick="javascript:resetWorld(resolution.value);">Change world</button>
+            <button onclick="javascript:specialWorld();">Special world</button>
         </div>
         <div class="button-panel">
             <button onclick="javascript:wfsAction();">Action!</button>
@@ -21,9 +22,9 @@
         </div>
     </div>
     <div class="container">
-        <canvas id="world" width="402" height="302"></canvas>
-        <canvas id="path" width="402" height="302"></canvas>
-        <canvas id="curtain" width="402" height="302"></canvas>
+        <canvas id="world" width="402" height="402"></canvas>
+        <canvas id="path" width="402" height="402"></canvas>
+        <canvas id="curtain" width="402" height="402"></canvas>
     </div>
 </body>
 

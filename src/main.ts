@@ -1,4 +1,8 @@
-import { Actor } from './actor/actor';
+import { AStarActor } from './actor/a-star-actor';
+import { ActorBase } from './actor/actor-base';
+import { HeuristicActor } from './actor/heuristic-actor';
+import { WfsActor } from './actor/wfs-actor';
+import { IPosition } from './game-infra/position';
 import { Brick } from './game-object/brick';
 import { Goal } from './game-object/goal';
 import { Start } from './game-object/start';
@@ -35,28 +39,32 @@ export function resetWorld(resolution: string | number): void {
   system.start();
 }
 
-export function wfsAction(): void {
+export function specialWorld(): void {
+  world.getContext('2d').clearRect(0, 0, world.width, world.height);
   path.getContext('2d').clearRect(0, 0, path.width, path.height);
-  const actor = new Actor(system, start, goal);
-  actor.wfsFind();
+  system?.stop();
+}
+
+function goToGoal(
+  create: (game: GameSystem, start: IPosition, goal: IPosition) => ActorBase,
+): void {
+  path.getContext('2d').clearRect(0, 0, path.width, path.height);
+  const actor = create(system, start, goal);
+  actor.goToGoal();
   system.renderVisited(path.getContext('2d'), actor.visited);
   system.renderPath(path.getContext('2d'), actor.pathToPrint);
+}
+
+export function wfsAction(): void {
+  goToGoal((game, start, goal) => new WfsActor(game, start, goal));
 }
 
 export function heuristicAction(): void {
-  path.getContext('2d').clearRect(0, 0, path.width, path.height);
-  const actor = new Actor(system, start, goal);
-  actor.heuristicFind();
-  system.renderVisited(path.getContext('2d'), actor.visited);
-  system.renderPath(path.getContext('2d'), actor.pathToPrint);
+  goToGoal((game, start, goal) => new HeuristicActor(game, start, goal));
 }
 
 export function aStarAction(): void {
-  path.getContext('2d').clearRect(0, 0, path.width, path.height);
-  const actor = new Actor(system, start, goal);
-  actor.aStarFind();
-  system.renderVisited(path.getContext('2d'), actor.visited);
-  system.renderPath(path.getContext('2d'), actor.pathToPrint);
+  goToGoal((game, start, goal) => new AStarActor(game, start, goal));
 }
 
 resetWorld(25);
