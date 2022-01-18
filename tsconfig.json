@@ -5,11 +5,16 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "noImplicitAny": true,
+    "jsx": "react"
   },
   "lib": [
     "ESNext",
     "dom"
+  ],
+  "include": [
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules",

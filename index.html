@@ -4,21 +4,20 @@
 <head>
     <title>Game</title>
     <link rel="stylesheet" type="text/css" href="index.css" />
-    <script type="module" src="dist/game-system.js"></script>
-    <script type="module" src="dist/main.js"></script>
+    <script type="module" src="dist/bundle.js"></script>
 </head>
 
 <body>
     <div class="control-panel">
         <div class="world-panel">
             Resolution of world: <input id="resolution" value="25" />
-            <button onclick="javascript:resetWorld(resolution.value);">Change world</button>
-            <button onclick="javascript:specialWorld();">Special world</button>
+            <button id="reset">Change world</button>
+            <button id="special">Special world</button>
         </div>
         <div class="button-panel">
-            <button onclick="javascript:wfsAction();">Action!</button>
-            <button onclick="javascript:heuristicAction();">Heuristic Action!</button>
-            <button onclick="javascript:aStarAction();">A* Action!</button>
+            <button id="wfs">Action!</button>
+            <button id="heuristic">Heuristic Action!</button>
+            <button id="a-star">A* Action!</button>
         </div>
     </div>
     <div class="container">

@@ -8,9 +8,9 @@ import { Goal } from './game-object/goal';
 import { Start } from './game-object/start';
 import { GameSystem } from './game-system';
 
-const world = document.querySelector('#world') as HTMLCanvasElement;
-const foreground = document.querySelector('#curtain') as HTMLCanvasElement;
-const path = document.querySelector('#path') as HTMLCanvasElement;
+const world: HTMLCanvasElement = document.querySelector('#world');
+const foreground: HTMLCanvasElement = document.querySelector('#curtain');
+const path: HTMLCanvasElement = document.querySelector('#path');
 let system: GameSystem;
 
 let goal: Goal;
@@ -69,7 +69,20 @@ export function aStarAction(): void {
 
 resetWorld(25);
 
-window['resetWorld'] = resetWorld;
-window['wfsAction'] = wfsAction;
-window['heuristicAction'] = heuristicAction;
-window['aStarAction'] = aStarAction;
+const resolution: HTMLInputElement = document.querySelector('input');
+const resetButton: HTMLButtonElement = document.querySelector('#reset');
+resetButton.addEventListener('click', () => resetWorld(resolution.value));
+
+const wfsButton: HTMLButtonElement = document.querySelector('#wfs');
+wfsButton.addEventListener('click', () => wfsAction());
+
+const heuristicButton: HTMLButtonElement = document.querySelector('#heuristic');
+heuristicButton.addEventListener('click', () => heuristicAction());
+
+const aStarButton: HTMLButtonElement = document.querySelector('#a-star');
+aStarButton.addEventListener('click', () => aStarAction());
+
+// window['resetWorld'] = resetWorld;
+// window['wfsAction'] = wfsAction;
+// window['heuristicAction'] = heuristicAction;
+// window['aStarAction'] = aStarAction;
