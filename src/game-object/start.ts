@@ -4,7 +4,7 @@ import { GameSprite } from './game-sprite';
 export class Start extends GameSprite {
   constructor(x: number = 0, y: number = 0) {
     super(x, y);
-    this.img.src = '../../asset/start.png';
+    this.img.src = 'asset/start.png';
   }
 
   public init(worldSize: number): void {

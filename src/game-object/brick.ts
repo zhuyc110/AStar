@@ -18,7 +18,7 @@ export class Brick extends GameSprite {
   constructor(x: number = 0, y: number = 0, resolution: number = 0) {
     super(x, y);
     this.resolution = resolution;
-    this.img.src = '../../asset/brick.png';
+    this.img.src = 'asset/brick.png';
   }
 
   public init(worldResolution: number, used: Set<string>): void {

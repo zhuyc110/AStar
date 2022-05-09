@@ -4,7 +4,7 @@ import { GameSprite } from './game-sprite';
 export class Goal extends GameSprite {
   constructor(x: number = 0, y: number = 0) {
     super(x, y);
-    this.img.src = '../../asset/goal.png';
+    this.img.src = 'asset/goal.png';
   }
   public init(worldResolution: number, used: Set<string>): void {
     this.resolution = worldResolution;
