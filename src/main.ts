@@ -72,15 +72,12 @@ const resetButton: HTMLButtonElement = document.querySelector('#reset');
 resetButton.addEventListener('click', () => resetWorld(resolution.value));
 
 const wfsButton: HTMLButtonElement = document.querySelector('#wfs');
-wfsButton.addEventListener('click', () => wfsAction());
+wfsButton.addEventListener('click', wfsAction);
 
 const heuristicButton: HTMLButtonElement = document.querySelector('#heuristic');
-heuristicButton.addEventListener('click', () => heuristicAction());
+heuristicButton.addEventListener('click', heuristicAction);
 
 const aStarButton: HTMLButtonElement = document.querySelector('#a-star');
-aStarButton.addEventListener('click', () => aStarAction());
+aStarButton.addEventListener('click', aStarAction);
 
-// window['resetWorld'] = resetWorld;
-// window['wfsAction'] = wfsAction;
-// window['heuristicAction'] = heuristicAction;
-// window['aStarAction'] = aStarAction;
+resetWorld(25);
