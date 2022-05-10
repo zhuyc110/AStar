@@ -67,8 +67,6 @@ export function aStarAction(): void {
   goToGoal((game, start, goal) => new AStarActor(game, start, goal));
 }
 
-resetWorld(25);
-
 const resolution: HTMLInputElement = document.querySelector('input');
 const resetButton: HTMLButtonElement = document.querySelector('#reset');
 resetButton.addEventListener('click', () => resetWorld(resolution.value));
