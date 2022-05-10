@@ -1,1 +1,30 @@
-<!doctype html><html><head><title>A* Game</title><link rel="stylesheet" href="index.css"/><script type="module" src="bundle.js"></script><script defer="defer" src="bundle.js"></script></head><body><div class="control-panel"><div class="world-panel">Resolution of world: <input id="resolution" value="25"/> <button id="reset">Change world</button> <button id="special">Special world</button></div><div class="button-panel"><button id="wfs">Action!</button> <button id="heuristic">Heuristic Action!</button> <button id="a-star">A* Action!</button></div></div><div class="container"><canvas id="world" width="402" height="402"></canvas><canvas id="path" width="402" height="402"></canvas><canvas id="curtain" width="402" height="402"></canvas></div></body></html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>A* Game</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script type="module" src="bundle.js"></script>
+<script defer src="bundle.js"></script></head>
+
+<body>
+    <div class="control-panel">
+        <div class="world-panel">
+            Resolution of world: <input id="resolution" value="25" />
+            <button id="reset">Change world</button>
+            <button id="special">Special world</button>
+        </div>
+        <div class="button-panel">
+            <button id="wfs">Action!</button>
+            <button id="heuristic">Heuristic Action!</button>
+            <button id="a-star">A* Action!</button>
+        </div>
+    </div>
+    <div class="container">
+        <canvas id="world" width="402" height="402"></canvas>
+        <canvas id="path" width="402" height="402"></canvas>
+        <canvas id="curtain" width="402" height="402"></canvas>
+    </div>
+</body>
+
+</html>
