@@ -7,6 +7,7 @@ import webpack from 'webpack';
 const config: webpack.Configuration = {
   entry: ['./src/main.ts', './src/style.ts'],
   mode: 'development',
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -33,7 +34,7 @@ const config: webpack.Configuration = {
       template: 'index.html',
     }),
     new CopyPlugin({
-      patterns: [{ from: 'asset', to: 'asset' }],
+      patterns: [{ from: 'asset', to: 'asset' }, { from: 'favicon.ico' }],
     }),
     new MiniCssExtractPlugin({ filename: 'style.css' }),
   ],

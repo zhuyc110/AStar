@@ -6,6 +6,7 @@
   "scripts": {
     "start": "hs -c-1",
     "build": "webpack --mode=production",
+    "serve": "webpack & cd build & hs -c-1",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
