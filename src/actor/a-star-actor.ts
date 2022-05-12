@@ -17,12 +17,11 @@ export class AStarActor extends ActorBase {
     while (queue.length > 0) {
       const current = queue.dequeue();
 
+      this.visited.push(current);
       if (current.stringify === this.goal.stringify) {
-        this.visited.push(current);
         break;
       }
 
-      this.visited.push(current);
       const neighbors = this.getNeighbors(current);
 
       for (let neighbor of neighbors) {

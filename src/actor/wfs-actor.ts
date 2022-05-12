@@ -15,8 +15,8 @@ export class WfsActor extends ActorBase {
     while (queue.length > 0) {
       const current = queue.dequeue();
 
+      this.visited.push(current);
       if (current.stringify === this.goal.stringify) {
-        this.visited.push(current);
         break;
       }
 
@@ -24,7 +24,6 @@ export class WfsActor extends ActorBase {
         continue;
       }
 
-      this.visited.push(current);
       visited.add(current.stringify);
 
       const neighbors = this.getNeighbors(current);
