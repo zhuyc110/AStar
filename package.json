@@ -4,8 +4,8 @@
   "description": "test for A*",
   "main": "dist/app.js",
   "scripts": {
-    "start": "hs -c-1",
-    "build": "webpack --mode=production",
+    "start": "webpack --config webpack.dev.ts",
+    "build": "webpack --config webpack.prod.ts",
     "serve": "webpack & cd build & hs -c-1",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
@@ -39,7 +39,8 @@
     "tsconfig-paths": "^3.12.0",
     "typescript": "^4.5.4",
     "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.1"
+    "webpack-cli": "^4.9.1",
+    "webpack-merge": "^5.8.0"
   },
   "type": "commonjs"
 }

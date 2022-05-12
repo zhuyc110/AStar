@@ -1,23 +1,15 @@
 import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as path from 'path';
 import webpack from 'webpack';
 
-const config: webpack.Configuration = {
+const commonConfig: webpack.Configuration = {
   entry: ['./src/main.ts', './src/style.ts'],
-  mode: 'development',
-  devtool: 'eval-source-map',
   module: {
     rules: [
       {
         test: /\.tsx?$/i,
         use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.(scss|css)?$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
         exclude: /node_modules/,
       },
     ],
@@ -36,8 +28,7 @@ const config: webpack.Configuration = {
     new CopyPlugin({
       patterns: [{ from: 'asset', to: 'asset' }, { from: 'favicon.ico' }],
     }),
-    new MiniCssExtractPlugin({ filename: 'style.css' }),
   ],
 };
 
-export default config;
+export default commonConfig;
